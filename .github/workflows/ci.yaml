@@ -1,0 +1,94 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+    tags: ["*"]
+  pull_request:
+    branches: [main]
+
+env:
+  UV_VERSION: "0.9.26"
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.13", "3.14"]
+        include:
+          - python-version: "3.12"
+            format-for-github: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          version: ${{ env.UV_VERSION }}
+
+      - name: Check uv.lock
+        run: uv lock --check
+
+      - name: Sync (locked)
+        run: uv sync --locked
+
+      - name: Lint (ruff)
+        run: |
+          if [[ "${{ matrix.format-for-github }}" == "true" ]]
+          then
+            uv run --frozen ruff check . --config pyproject.toml --output-format=github --no-fix
+          else
+            uv run --frozen ruff check . --config pyproject.toml --no-fix
+          fi
+
+      - name: Typing (pyright)
+        run: uv run --frozen pyright
+
+  format:
+    name: Format
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.13", "3.14"]
+        include:
+          - python-version: "3.12"
+            format-for-github: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          version: ${{ env.UV_VERSION }}
+
+      - name: Formatting (ruff)
+        run: uv run --frozen ruff format --check
+
+  test:
+    name: Test
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.13", "3.14"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          version: ${{ env.UV_VERSION }}
+
+      - name: Sync (locked)
+        run: uv sync --locked
+
+      - name: Test
+        run: uv run --frozen pytest tests

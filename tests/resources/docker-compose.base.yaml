@@ -1,0 +1,5 @@
+services:
+  test-service:
+    image: test-image
+    ports:
+      - "2020:2020"

@@ -1,0 +1,79 @@
+[project]
+name = "pytest-testcontainers-compose"
+version = "0.0.1"
+description = "Pytest plugin for Docker Compose"
+authors = [
+  { name = "bakdata", email = "opensource@bakdata.com" },
+]
+requires-python = ">=3.12,<4"
+readme = "README.md"
+license = "MIT"
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Programming Language :: Python :: 3.14",
+  "License :: OSI Approved :: MIT License",
+]
+dependencies = [
+  "testcontainers>=4.7.2,<5",
+  "pydantic>=2.8.2,<3",
+  "deepmerge>=1.1.1,<2",
+  "pyyaml>=6.0.3,<7",
+]
+
+[dependency-groups]
+test = [
+  "pytest>=8.2.2,<9",
+  "pytest-asyncio>=0.23.7,<0.24",
+  "pytest-mock>=3.14.0,<4",
+  "pytest-clarity>=1.0.1,<2",
+  "pytest-cov>=5.0.0,<6",
+]
+dev = [
+  "pre-commit>=3.7.1,<4",
+  "ruff>=0.5.2,<0.6",
+  "pyright>=1.1.372,<2",
+]
+
+[tool.uv]
+default-groups = [
+  "test",
+  "dev",
+]
+
+[build-system]
+requires = ["uv_build>=0.9.26,<0.10.0"]
+build-backend = "uv_build"
+
+[tool.ruff]
+output-format = "grouped"
+show-fixes = true
+target-version = "py310"
+
+[tool.ruff.lint]
+# For a list of all possible rules visit https://docs.astral.sh/ruff/rules/
+select = [
+  "F", # Pyflakes
+  "E", # pycodestyle Errors
+  "W", # pycodestyle Warnings
+  "C90", # mccabe
+  "I", # isort
+  "UP", # pyupgrade
+  "B", # flake8-bugbear
+  "RUF", # Ruff-specific rules
+]
+ignore = [
+  # Rules in conflict with `ruff-format` -- START
+  "W191", # Checks for indentation that uses tabs. Spaces are preferred.
+  # "E111", # Checks for indentation with a non-multiple of 4 spaces, add when out of nursery
+  # "E114", # Checks for indentation of comments with a non-multiple of 4 spaces, add when out of nursery
+  # "E117", # Checks for over-indented code, add when out of nursery
+  "E501", # Line too long
+  # Rules in conflict with `ruff-format` -- END
+  "RUF012", # type class attrs with `ClassVar` -- Too strict/trigger-happy
+]
+
+[tool.pytest.ini_options]
+testpaths = "tests"
+addopts = "--cov={package_name} --cov-report term-missing"

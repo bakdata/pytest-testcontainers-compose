@@ -1,0 +1,29 @@
+name: Release to GitHub and push tag
+
+on:
+  workflow_dispatch:
+    inputs:
+      release-type:
+        description: "SemVer scope of the release"
+        type: choice
+        required: true
+        default: patch
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  create-github-release-push-tag:
+    uses: bakdata/ci-templates/.github/workflows/python-uv-release.yaml@1.73.0
+    name: Release
+    with:
+      release-type: ${{inputs.release-type}}
+      python-version: "3.12"
+      uv-version: "0.9.26"
+      changelog: true
+      changelog-file: "./changelog.md"
+    secrets:
+      github-username: "${{ secrets.GH_USERNAME }}"
+      github-email: "${{ secrets.GH_EMAIL }}"
+      github-token: "${{ secrets.GH_TOKEN }}"
