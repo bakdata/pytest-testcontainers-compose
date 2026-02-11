@@ -48,6 +48,10 @@ jobs:
       - name: Typing (pyright)
         run: uv run --frozen pyright
 
+      - name: Pytest signature check
+        run: |
+          pytest -q --collect-only -o addopts= -p pytest_testcontainers_compose.plugin
+
   format:
     name: Format
     runs-on: ubuntu-24.04
