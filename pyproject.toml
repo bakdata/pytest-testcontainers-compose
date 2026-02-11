@@ -1,6 +1,6 @@
 [project]
 name = "pytest-testcontainers-compose"
-version = "0.1.0"
+version = "0.1.1"
 description = "Pytest plugin for Docker Compose"
 authors = [
   { name = "bakdata", email = "opensource@bakdata.com" },
