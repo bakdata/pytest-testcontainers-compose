@@ -11,7 +11,7 @@ from pytest_testcontainers_compose.utils import (
 )
 
 
-def containers_scope(_fixture_name: str, config: Config) -> Any:
+def containers_scope(fixture_name: str, config: Config) -> Any:
     return config.getoption("--container-scope", "session")  # type: ignore[reportArgumentType]
 
 
