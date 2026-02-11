@@ -48,9 +48,9 @@ jobs:
       - name: Typing (pyright)
         run: uv run --frozen pyright
 
-      - name: Pytest
+      - name: Pytest signature check
         run: |
-          pytest -q --collect-only -o addopts= -p pytest_testcontainers_compose.plugin
+          pytest -q --collect-only -o -p pytest_testcontainers_compose.plugin
 
   format:
     name: Format
