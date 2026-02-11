@@ -434,24 +434,24 @@ test = [
 
 [package.metadata]
 requires-dist = [
-    { name = "deepmerge", specifier = ">=1.1.1,<2" },
-    { name = "pydantic", specifier = ">=2.8.2,<3" },
-    { name = "pyyaml", specifier = ">=6.0.3,<7" },
-    { name = "testcontainers", specifier = ">=4.7.2,<5" },
+    { name = "deepmerge", specifier = ">=1.1.1" },
+    { name = "pydantic", specifier = ">=2.8.2" },
+    { name = "pyyaml", specifier = ">=6.0.3" },
+    { name = "testcontainers", specifier = ">=4.7.2" },
 ]
 
 [package.metadata.requires-dev]
 dev = [
-    { name = "pre-commit", specifier = ">=3.7.1,<4" },
-    { name = "pyright", specifier = ">=1.1.372,<2" },
-    { name = "ruff", specifier = ">=0.5.2,<0.6" },
+    { name = "pre-commit", specifier = ">=3.7.1" },
+    { name = "pyright", specifier = ">=1.1.372" },
+    { name = "ruff", specifier = ">=0.5.2" },
 ]
 test = [
-    { name = "pytest", specifier = ">=8.2.2,<9" },
-    { name = "pytest-asyncio", specifier = ">=0.23.7,<0.24" },
-    { name = "pytest-clarity", specifier = ">=1.0.1,<2" },
-    { name = "pytest-cov", specifier = ">=5.0.0,<6" },
-    { name = "pytest-mock", specifier = ">=3.14.0,<4" },
+    { name = "pytest", specifier = ">=8.2.2" },
+    { name = "pytest-asyncio", specifier = ">=0.23.7" },
+    { name = "pytest-clarity", specifier = ">=1.0.1" },
+    { name = "pytest-cov", specifier = ">=5.0.0" },
+    { name = "pytest-mock", specifier = ">=3.14.0" },
 ]
 
 [[package]]
